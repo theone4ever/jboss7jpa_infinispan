@@ -22,6 +22,42 @@ To test this example:
 5. Click on the `Greet a user!` link to return to the `Greet!` page.
 
 
+Data source must be defined in Data source defination in standalone-ha.xml
+				<datasource jndi-name="java:jboss/datasources/MySqlDS" pool-name="MySqlDS">
+                    <connection-url>jdbc:mysql://localhost:3306/test</connection-url>
+                    <driver>com.mysql</driver>
+                    <transaction-isolation>TRANSACTION_READ_COMMITTED</transaction-isolation>
+                    <pool>
+                        <min-pool-size>10</min-pool-size>
+                        <max-pool-size>100</max-pool-size>
+                        <prefill>true</prefill>
+                    </pool>
+                    <security>
+                        <user-name>root</user-name>
+                        <password>root</password>
+                    </security>
+                    <statement>
+                        <prepared-statement-cache-size>32</prepared-statement-cache-size>
+                        <share-prepared-statements>true</share-prepared-statements>
+                    </statement>
+                </datasource>
+Also and mysql driver: 
+                <drivers>
+                    <driver name="h2" module="com.h2database.h2">
+                        <xa-datasource-class>org.h2.jdbcx.JdbcDataSource</xa-datasource-class>
+                    </driver>
+                    <driver name="com.mysql" module="com.mysql">
+                        <xa-datasource-class>com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</xa-datasource-class>
+                    </driver>
+                </drivers>
+
+These logs must be useful:
+ 			<logger category="org.infinispan">
+                <level name="TRACE"/>
+            </logger>
+            <logger category="org.hibernate.cache.infinispan">
+                <level name="TRACE"/>
+            </logger>
 
 There is a tutorial for this quickstart in the [Getting Started Developing Applications Guide](http://www.jboss.org/jdf/stage/quickstarts/jboss-as-quickstart/guide/GreeterQuickstart/).
 
@@ -43,10 +79,10 @@ Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Web Profile
 -------------------------
 
 1. Open a command line and navigate to the root of the JBoss server directory.
-2. The following shows the command line to start the server with the web profile:
+2. The following shows the command line to start the server:
 
-        For Linux:   JBOSS_HOME/bin/standalone.sh
-        For Windows: JBOSS_HOME\bin\standalone.bat
+        Instance 1: standalone.sh -c standalone-ha.xml -Djboss.node.name=node1
+		Instance 2: standalone.sh -c standalone-ha.xml -Djboss.socket.binding.port-offset=100 -Djboss.node.name=node2
 
  
 Build and Deploy the Quickstart
@@ -58,30 +94,19 @@ _NOTE: The following build command assumes you have configured your Maven user s
 2. Open a command line and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
-        mvn clean package jboss-as:deploy
+        Deploy app to instance 1: mvn clean package jboss-as:deploy
+		Deploy app to instance 2: mvn clean package jboss-as:deploy -Djboss-as.port=10099
 
 4. This will deploy `target/jboss-as-greeter.war` to the running instance of the server.
-
+5. Undeploy app:
+		Undeploy from instance 1: mvn clean package jboss-as:undeploy
+		Undeploy from instance 2: mvn clean package jboss-as:undeploy -Djboss-as.port=10099
 
 Access the application 
 ---------------------
 
-The application will be running at the following URL: <http://localhost:8080/jboss-as-greeter>. 
+The application will be running at the following URL: <http://localhost:8080/jboss-as-greeter> and <http://localhost:8180/jboss-as-greeter/greet.jsf>
 
-
-Undeploy the Archive
---------------------
-
-1. Make sure you have started the JBoss Server as described above.
-2. Open a command line and navigate to the root directory of this quickstart.
-3. When you are finished testing, type this command to undeploy the archive:
-
-        mvn jboss-as:undeploy
-
-
-Run the Quickstart in JBoss Developer Studio or Eclipse
--------------------------------------
-You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](../README.md#useeclipse) 
 
 
 Debug the Application
