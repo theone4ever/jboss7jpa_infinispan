@@ -1,0 +1,1 @@
+Dependencies: org.infinispan export,org.hibernate.envers export, org.hibernate export, org.hibernate.infinispan export
