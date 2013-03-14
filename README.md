@@ -23,41 +23,42 @@ To test this example:
 
 
 Data source must be defined in Data source defination in standalone-ha.xml
-				<datasource jndi-name="java:jboss/datasources/MySqlDS" pool-name="MySqlDS">
-                    <connection-url>jdbc:mysql://localhost:3306/test</connection-url>
-                    <driver>com.mysql</driver>
-                    <transaction-isolation>TRANSACTION_READ_COMMITTED</transaction-isolation>
-                    <pool>
-                        <min-pool-size>10</min-pool-size>
-                        <max-pool-size>100</max-pool-size>
-                        <prefill>true</prefill>
-                    </pool>
-                    <security>
-                        <user-name>root</user-name>
-                        <password>root</password>
-                    </security>
-                    <statement>
-                        <prepared-statement-cache-size>32</prepared-statement-cache-size>
-                        <share-prepared-statements>true</share-prepared-statements>
-                    </statement>
-                </datasource>
+&lt;pre&gt;&lt;code&gt;
+				&lt;datasource jndi-name="java:jboss/datasources/MySqlDS" pool-name="MySqlDS"&gt;
+                    &lt;connection-url&gt;jdbc:mysql://localhost:3306/test&lt;/connection-url&gt;
+                    &lt;driver&gt;com.mysql&lt;/driver&gt;
+                    &lt;transaction-isolation&gt;TRANSACTION_READ_COMMITTED&lt;/transaction-isolation&gt;
+                    &lt;pool&gt;
+                        &lt;min-pool-size&gt;10&lt;/min-pool-size&gt;
+                        &lt;max-pool-size&gt;100&lt;/max-pool-size&gt;
+                        &lt;prefill&gt;true&lt;/prefill&gt;
+                    &lt;/pool&gt;
+                    &lt;security&gt;
+                        &lt;user-name&gt;root&lt;/user-name&gt;
+                        &lt;password&gt;root&lt;/password&gt;
+                    &lt;/security&gt;
+                    &lt;statement&gt;
+                        &lt;prepared-statement-cache-size&gt;32&lt;/prepared-statement-cache-size&gt;
+                        &lt;share-prepared-statements&gt;true&lt;/share-prepared-statements&gt;
+                    &lt;/statement&gt;
+                &lt;/datasource&gt;
 Also and mysql driver: 
-                <drivers>
-                    <driver name="h2" module="com.h2database.h2">
-                        <xa-datasource-class>org.h2.jdbcx.JdbcDataSource</xa-datasource-class>
-                    </driver>
-                    <driver name="com.mysql" module="com.mysql">
-                        <xa-datasource-class>com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</xa-datasource-class>
-                    </driver>
-                </drivers>
+                &lt;drivers&gt;
+                    &lt;driver name="h2" module="com.h2database.h2"&gt;
+                        &lt;xa-datasource-class&gt;org.h2.jdbcx.JdbcDataSource&lt;/xa-datasource-class&gt;
+                    &lt;/driver&gt;
+                    &lt;driver name="com.mysql" module="com.mysql"&gt;
+                        &lt;xa-datasource-class&gt;com.mysql.jdbc.jdbc2.optional.MysqlXADataSource&lt;/xa-datasource-class&gt;
+                    &lt;/driver&gt;
+                &lt;/drivers&gt;
 
 These logs must be useful:
- 			<logger category="org.infinispan">
-                <level name="TRACE"/>
-            </logger>
-            <logger category="org.hibernate.cache.infinispan">
-                <level name="TRACE"/>
-            </logger>
+ 			&lt;logger category="org.infinispan"&gt;
+                &lt;level name="TRACE"/&gt;
+            &lt;/logger&gt;
+            &lt;logger category="org.hibernate.cache.infinispan"&gt;
+                &lt;level name="TRACE"/&gt;
+            &lt;/logger&gt;
 
 There is a tutorial for this quickstart in the [Getting Started Developing Applications Guide](http://www.jboss.org/jdf/stage/quickstarts/jboss-as-quickstart/guide/GreeterQuickstart/).
 
@@ -105,7 +106,7 @@ _NOTE: The following build command assumes you have configured your Maven user s
 Access the application 
 ---------------------
 
-The application will be running at the following URL: <http://localhost:8080/jboss-as-greeter> and <http://localhost:8180/jboss-as-greeter/greet.jsf>
+The application will be running at the following URL: &lt;http://localhost:8080/jboss-as-greeter&gt; and &lt;http://localhost:8180/jboss-as-greeter/greet.jsf&gt;
 
 
 
