@@ -23,7 +23,7 @@ To test this example:
 
 
 Data source must be defined in Data source defination in standalone-ha.xml
-&lt;pre&gt;&lt;code&gt;
+<pre><code>
 				&lt;datasource jndi-name="java:jboss/datasources/MySqlDS" pool-name="MySqlDS"&gt;
                     &lt;connection-url&gt;jdbc:mysql://localhost:3306/test&lt;/connection-url&gt;
                     &lt;driver&gt;com.mysql&lt;/driver&gt;
@@ -42,8 +42,9 @@ Data source must be defined in Data source defination in standalone-ha.xml
                         &lt;share-prepared-statements&gt;true&lt;/share-prepared-statements&gt;
                     &lt;/statement&gt;
                 &lt;/datasource&gt;
-Also and mysql driver: 
-                &lt;drivers&gt;
+                
+Also and mysql driver:
+<pre><code>
                     &lt;driver name="h2" module="com.h2database.h2"&gt;
                         &lt;xa-datasource-class&gt;org.h2.jdbcx.JdbcDataSource&lt;/xa-datasource-class&gt;
                     &lt;/driver&gt;
@@ -53,6 +54,7 @@ Also and mysql driver:
                 &lt;/drivers&gt;
 
 These logs must be useful:
+<pre><code>
  			&lt;logger category="org.infinispan"&gt;
                 &lt;level name="TRACE"/&gt;
             &lt;/logger&gt;
